@@ -1,97 +1,103 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>境外 SEO 搜尋連結產生器</title>
+    <title>Global SEO Search URL Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body, button, input, select, table, h1, h2, label { font-family: 'Open Sans', sans-serif !important; }
-        input::placeholder { font-size: 0.75rem; }
+        body, button, input, select, table, h1, h2, label, p, li, th, td { font-family: 'Open Sans', sans-serif !important; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4 md:p-8">
     <div class="max-w-2xl mx-auto space-y-6">
+        <!-- Generator Section -->
         <div class="bg-white rounded-xl shadow-md p-6">
-            <h1 class="text-2xl font-bold mb-6 text-gray-800">境外 SEO 搜尋連結產生器</h1>
+            <h1 class="text-2xl font-bold mb-6 text-gray-800">Global SEO Search URL Generator</h1>
             
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">搜尋關鍵字 (Keyword)</label>
-                    <input type="text" id="keyword" placeholder="例如: Gaming Laptop" class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700">Keyword</label>
+                    <input type="text" id="keyword" placeholder="e.g., Gaming Laptop" class="mt-1 block w-full border border-gray-300 rounded-md p-2 text-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">目標地區 (Location)</label>
+                    <label class="block text-sm font-medium text-gray-700">Target Location</label>
                     <select id="country" class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white text-sm">
-                        <option value="us">美國 (US)</option>
-                        <option value="uk">英國 (UK)</option>
-                        <option value="ca">加拿大 (CA)</option>
-                        <option value="au">澳洲 (AU)</option>
-                        <option value="br">巴西 (BR)</option>
-                        <option value="cn">中國 (CN)</option>
-                        <option value="fr">法國 (FR)</option>
-                        <option value="hk">香港 (HK)</option>
-                        <option value="in">印度 (IN)</option>
-                        <option value="id">印尼 (ID)</option>
-                        <option value="jp">日本 (JP)</option>
-                        <option value="my">馬來西亞 (MY)</option>
-                        <option value="nl">荷蘭 (NL)</option>
-                        <option value="ph">菲律賓 (PH)</option>
-                        <option value="sg">新加坡 (SG)</option>
-                        <option value="tw">台灣 (TW)</option>
-                        <option value="th">泰國 (TH)</option>
+                        <option value="us">United States (US)</option>
+                        <option value="uk">United Kingdom (UK)</option>
+                        <option value="ca">Canada (CA)</option>
+                        <option value="au">Australia (AU)</option>
+                        <option value="br">Brazil (BR)</option>
+                        <option value="cn">China (CN)</option>
+                        <option value="fr">France (FR)</option>
+                        <option value="hk">Hong Kong (HK)</option>
+                        <option value="in">India (IN)</option>
+                        <option value="id">Indonesia (ID)</option>
+                        <option value="jp">Japan (JP)</option>
+                        <option value="my">Malaysia (MY)</option>
+                        <option value="nl">Netherlands (NL)</option>
+                        <option value="ph">Philippines (PH)</option>
+                        <option value="sg">Singapore (SG)</option>
+                        <option value="tw">Taiwan (TW)</option>
+                        <option value="th">Thailand (TH)</option>
                     </select>
                 </div>
 
-                <button onclick="generateURL()" class="w-full text-white font-bold py-2 rounded-md transition" style="background-color: #2894FF;">生成搜尋網址</button>
+                <button onclick="generateURL()" class="w-full text-white font-bold py-2 rounded-md transition" style="background-color: #2894FF;">Generate Search URL</button>
             </div>
 
             <div id="resultArea" class="mt-8 hidden">
-                <label class="block text-sm font-medium text-gray-700">連結已產生：</label>
+                <label class="block text-sm font-medium text-gray-700">Generated URL:</label>
                 <div class="mt-2 flex gap-2 relative">
                     <input type="text" id="outputUrl" readonly class="flex-1 bg-gray-50 border border-gray-200 rounded-md p-2 text-sm text-blue-600 truncate">
-                    <div class="relative">
-                        <button onclick="copyToClipboard()" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 text-sm whitespace-nowrap">複製</button>
-                        <div id="copyToast" class="hidden absolute -top-10 left-0 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-90 whitespace-nowrap flex items-center gap-1.5">
-                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="12" cy="12" r="10" fill="#22C55E"/>
-                                <path d="M7 12L10 15L17 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            複製成功！
-                        </div>
-                    </div>
+                    <button onclick="copyToClipboard()" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 text-sm whitespace-nowrap">Copy</button>
                 </div>
-                <a id="goLink" href="#" target="_blank" class="mt-4 block text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700">前往搜尋結果</a>
+                <a id="goLink" href="#" target="_blank" class="mt-4 block text-center bg-green-600 text-white py-2 rounded-md hover:bg-green-700">Open Search Results</a>
             </div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-800">各國參數對照表</h2>
+        <!-- Tutorial & Why Use This Tool Section -->
+        <div class="bg-white rounded-xl shadow-md p-6 text-gray-800">
+            <h2 class="text-xl font-bold mb-4">Tutorial</h2>
+            <ol class="list-decimal ml-5 space-y-2 text-sm text-gray-600">
+                <li>Enter the keyword you want to research.</li>
+                <li>Select the target location (e.g., select US to view search results for the United States).</li>
+                <li>Click the "Generate" button.</li>
+                <li>It is highly recommended to copy the generated URL and paste it into an <strong>Incognito/Private Window</strong>. This ensures your personal search history and local settings do not influence the results, giving you a neutral view.</li>
+            </ol>
+
+            <h2 class="text-xl font-bold mt-8 mb-4">Why Use This Tool</h2>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6">
+                Google's search results are heavily customized based on a user's <strong>location (gl)</strong>, <strong>language (hl)</strong>, and <strong>browsing history</strong>. As an SEO professional, it is critical to see "clean" data to accurately gauge rankings in different target markets.<br><br>
+                This tool generates a URL with the <code>gl</code> (geolocation) and <code>pws=0</code> (Personalized Web Search Off) parameters. These parameters force Google to bypass personal customization, helping you retrieve the most objective and accurate search results for your target region.
+            </p>
+
+            <h2 class="text-xl font-bold mt-8 mb-4">Parameter Reference</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-xs text-left text-gray-600">
                     <thead class="bg-gray-50 uppercase border-b">
-                        <tr><th class="py-2 px-3">國家</th><th class="py-2 px-3">gl</th><th class="py-2 px-3">hl</th></tr>
+                        <tr><th class="py-2 px-3">Country</th><th class="py-2 px-3">gl</th><th class="py-2 px-3">hl</th></tr>
                     </thead>
                     <tbody class="divide-y">
-                        <tr><td class="py-2 px-3 font-medium">美國</td><td class="py-2 px-3">us</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">英國</td><td class="py-2 px-3">uk</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">加拿大</td><td class="py-2 px-3">ca</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">澳洲</td><td class="py-2 px-3">au</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">巴西</td><td class="py-2 px-3">br</td><td class="py-2 px-3">pt</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">中國</td><td class="py-2 px-3">cn</td><td class="py-2 px-3">zh-CN</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">法國</td><td class="py-2 px-3">fr</td><td class="py-2 px-3">fr</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">香港</td><td class="py-2 px-3">hk</td><td class="py-2 px-3">zh-HK</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">印度</td><td class="py-2 px-3">in</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">印尼</td><td class="py-2 px-3">id</td><td class="py-2 px-3">id</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">日本</td><td class="py-2 px-3">jp</td><td class="py-2 px-3">ja</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">馬來西亞</td><td class="py-2 px-3">my</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">荷蘭</td><td class="py-2 px-3">nl</td><td class="py-2 px-3">nl</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">菲律賓</td><td class="py-2 px-3">ph</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">新加坡</td><td class="py-2 px-3">sg</td><td class="py-2 px-3">en</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">台灣</td><td class="py-2 px-3">tw</td><td class="py-2 px-3">zh-TW</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">泰國</td><td class="py-2 px-3">th</td><td class="py-2 px-3">th</td></tr>
+                        <tr><td class="py-2 px-3">United States</td><td class="py-2 px-3">us</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">United Kingdom</td><td class="py-2 px-3">uk</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Canada</td><td class="py-2 px-3">ca</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Australia</td><td class="py-2 px-3">au</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Brazil</td><td class="py-2 px-3">br</td><td class="py-2 px-3">pt</td></tr>
+                        <tr><td class="py-2 px-3">China</td><td class="py-2 px-3">cn</td><td class="py-2 px-3">zh-CN</td></tr>
+                        <tr><td class="py-2 px-3">France</td><td class="py-2 px-3">fr</td><td class="py-2 px-3">fr</td></tr>
+                        <tr><td class="py-2 px-3">Hong Kong</td><td class="py-2 px-3">hk</td><td class="py-2 px-3">zh-HK</td></tr>
+                        <tr><td class="py-2 px-3">India</td><td class="py-2 px-3">in</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Indonesia</td><td class="py-2 px-3">id</td><td class="py-2 px-3">id</td></tr>
+                        <tr><td class="py-2 px-3">Japan</td><td class="py-2 px-3">jp</td><td class="py-2 px-3">ja</td></tr>
+                        <tr><td class="py-2 px-3">Malaysia</td><td class="py-2 px-3">my</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Netherlands</td><td class="py-2 px-3">nl</td><td class="py-2 px-3">nl</td></tr>
+                        <tr><td class="py-2 px-3">Philippines</td><td class="py-2 px-3">ph</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Singapore</td><td class="py-2 px-3">sg</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3">Taiwan</td><td class="py-2 px-3">tw</td><td class="py-2 px-3">zh-TW</td></tr>
+                        <tr><td class="py-2 px-3">Thailand</td><td class="py-2 px-3">th</td><td class="py-2 px-3">th</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -106,7 +112,7 @@
         function generateURL() {
             const keyword = document.getElementById('keyword').value.trim();
             const country = document.getElementById('country').value;
-            if (!keyword) { alert('請輸入關鍵字'); return; }
+            if (!keyword) { alert('Please enter a keyword'); return; }
 
             const hlMap = {
                 'us': 'en', 'uk': 'en', 'ca': 'en', 'au': 'en', 'br': 'pt', 'cn': 'zh-CN',
@@ -125,9 +131,7 @@
             const copyText = document.getElementById("outputUrl");
             copyText.select();
             document.execCommand('copy');
-            const toast = document.getElementById("copyToast");
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 2000);
+            alert('URL copied to clipboard!');
         }
     </script>
 </body>
