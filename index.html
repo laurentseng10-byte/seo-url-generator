@@ -5,17 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>境外 SEO 搜尋連結產生器</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Open Sans 字型 -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* 強制全頁面使用 Open Sans */
         body, button, input, select, table, h1, h2, label { font-family: 'Open Sans', sans-serif !important; }
         input::placeholder { font-size: 0.75rem; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen p-4 md:p-8">
     <div class="max-w-2xl mx-auto space-y-6">
-        <!-- 主工具區 -->
         <div class="bg-white rounded-xl shadow-md p-6">
             <h1 class="text-2xl font-bold mb-6 text-gray-800">境外 SEO 搜尋連結產生器</h1>
             
@@ -29,9 +26,10 @@
                     <label class="block text-sm font-medium text-gray-700">目標地區 (Location)</label>
                     <select id="country" class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-white text-sm">
                         <option value="us">美國 (US)</option>
+                        <option value="uk">英國 (UK)</option>
+                        <option value="ca">加拿大 (CA)</option>
                         <option value="au">澳洲 (AU)</option>
                         <option value="br">巴西 (BR)</option>
-                        <option value="ca">加拿大 (CA)</option>
                         <option value="cn">中國 (CN)</option>
                         <option value="fr">法國 (FR)</option>
                         <option value="hk">香港 (HK)</option>
@@ -47,7 +45,6 @@
                     </select>
                 </div>
 
-                <!-- 按鈕顏色設定為 #2894FF -->
                 <button onclick="generateURL()" class="w-full text-white font-bold py-2 rounded-md transition" style="background-color: #2894FF;">生成搜尋網址</button>
             </div>
 
@@ -57,7 +54,6 @@
                     <input type="text" id="outputUrl" readonly class="flex-1 bg-gray-50 border border-gray-200 rounded-md p-2 text-sm text-blue-600 truncate">
                     <div class="relative">
                         <button onclick="copyToClipboard()" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 text-sm whitespace-nowrap">複製</button>
-                        <!-- 提示小氣泡（含勾勾 icon） -->
                         <div id="copyToast" class="hidden absolute -top-10 left-0 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-90 whitespace-nowrap flex items-center gap-1.5">
                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="12" cy="12" r="10" fill="#22C55E"/>
@@ -71,23 +67,19 @@
             </div>
         </div>
 
-        <!-- 參數對照表 -->
         <div class="bg-white rounded-xl shadow-md p-6">
             <h2 class="text-lg font-bold mb-4 text-gray-800">各國參數對照表</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-xs text-left text-gray-600">
                     <thead class="bg-gray-50 uppercase border-b">
-                        <tr>
-                            <th class="py-2 px-3">國家</th>
-                            <th class="py-2 px-3">gl (區域)</th>
-                            <th class="py-2 px-3">hl (語言)</th>
-                        </tr>
+                        <tr><th class="py-2 px-3">國家</th><th class="py-2 px-3">gl</th><th class="py-2 px-3">hl</th></tr>
                     </thead>
                     <tbody class="divide-y">
                         <tr><td class="py-2 px-3 font-medium">美國</td><td class="py-2 px-3">us</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3 font-medium">英國</td><td class="py-2 px-3">uk</td><td class="py-2 px-3">en</td></tr>
+                        <tr><td class="py-2 px-3 font-medium">加拿大</td><td class="py-2 px-3">ca</td><td class="py-2 px-3">en</td></tr>
                         <tr><td class="py-2 px-3 font-medium">澳洲</td><td class="py-2 px-3">au</td><td class="py-2 px-3">en</td></tr>
                         <tr><td class="py-2 px-3 font-medium">巴西</td><td class="py-2 px-3">br</td><td class="py-2 px-3">pt</td></tr>
-                        <tr><td class="py-2 px-3 font-medium">加拿大</td><td class="py-2 px-3">ca</td><td class="py-2 px-3">en</td></tr>
                         <tr><td class="py-2 px-3 font-medium">中國</td><td class="py-2 px-3">cn</td><td class="py-2 px-3">zh-CN</td></tr>
                         <tr><td class="py-2 px-3 font-medium">法國</td><td class="py-2 px-3">fr</td><td class="py-2 px-3">fr</td></tr>
                         <tr><td class="py-2 px-3 font-medium">香港</td><td class="py-2 px-3">hk</td><td class="py-2 px-3">zh-HK</td></tr>
@@ -108,29 +100,21 @@
 
     <script>
         document.getElementById('keyword').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                generateURL();
-            }
+            if (e.key === 'Enter') generateURL();
         });
 
         function generateURL() {
             const keyword = document.getElementById('keyword').value.trim();
             const country = document.getElementById('country').value;
-            
-            if (!keyword) {
-                alert('請輸入關鍵字');
-                return;
-            }
+            if (!keyword) { alert('請輸入關鍵字'); return; }
 
             const hlMap = {
-                'us': 'en', 'au': 'en', 'br': 'pt', 'ca': 'en', 'cn': 'zh-CN',
+                'us': 'en', 'uk': 'en', 'ca': 'en', 'au': 'en', 'br': 'pt', 'cn': 'zh-CN',
                 'fr': 'fr', 'hk': 'zh-HK', 'in': 'en', 'id': 'id', 'jp': 'ja',
                 'my': 'en', 'nl': 'nl', 'ph': 'en', 'sg': 'en', 'tw': 'zh-TW', 'th': 'th'
             };
             const lang = hlMap[country] || 'en';
-
-            const formattedKeyword = keyword.replace(/\s+/g, '+');
-            const url = `https://www.google.com/search?q=${formattedKeyword}&gl=${country}&hl=${lang}&pws=0`;
+            const url = `https://www.google.com/search?q=${keyword.replace(/\s+/g, '+')}&gl=${country}&hl=${lang}&pws=0`;
             
             document.getElementById('outputUrl').value = url;
             document.getElementById('goLink').href = url;
@@ -140,16 +124,10 @@
         function copyToClipboard() {
             const copyText = document.getElementById("outputUrl");
             copyText.select();
-            try {
-                document.execCommand('copy');
-                const toast = document.getElementById("copyToast");
-                toast.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.add('hidden');
-                }, 2000);
-            } catch (err) {
-                alert("複製失敗，請手動複製");
-            }
+            document.execCommand('copy');
+            const toast = document.getElementById("copyToast");
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2000);
         }
     </script>
 </body>
